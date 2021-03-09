@@ -78,7 +78,7 @@ Statement st = con.createStatement();
 String s=new String(request.getParameter("Book type"));
 
 
-ResultSet rs=st.executeQuery("Select * from book where author="Chetan bhagat"");
+ResultSet rs=st.executeQuery("Select * from bookval where author="Chetan bhagat"");
 while(rs.next()){
  
        %> 
