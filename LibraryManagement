@@ -1,0 +1,129 @@
+1.Index.html
+<html>
+<body bgcolor="pink">
+ <marquee><h1>Home Page </center> 
+</h1></marquee> 
+ <h1><center> Library Management system </center> </h1>
+<h1> <a href="list.jsp">Type of books</a></h1>
+<h1><a href="jdbc_insert.jsp">Inserting the new books</a></h1>
+
+</body>
+</html>
+
+2.List.Jsp
+<html>
+    <body bgcolor="pink">
+    <marquee><h1><center> Listing  the books </center> </h1></marquee>   </<br></br>
+
+   <form action="jdbc_list.jsp" Method="get">
+    Enter the book type:<input type="text" name="Book type" /> 
+    <br><br>
+        <input type="submit" value="Ok"/> 
+        
+</form> 
+    </body>
+</html>
+
+3.Insert.jsp
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@page import="java.sql.*"%>
+<%@page import="java.lang.*" %>
+<!DOCTYPE html>
+<html>
+    <body bgcolor="yellow">
+        <%
+            try
+            {
+                Class.forName("com.mysql.jdbc.Driver");
+Connection con=DriverManager.getConnection("jdbc:mysql://localhost:3306/Books","root", "mysql");
+                Statement st=con.createStatement();
+                String name=(request.getParameter("Name"));
+                String author=(request.getParameter("Author"));      
+      		String booktype=(request.getParameter("Book type"));
+                String sql="insert into bookval values(?,?,?)"; 
+                PreparedStatement pst = con.prepareStatement(sql); 
+                pst.setString(1,pname);                                      
+                pst.setString(2,pauthor);
+                pst.setString(3,pbooktype);
+                out.println("INSERTED");
+                pst.executeUpdate(); 
+                st.close();
+                con.close();
+            }
+catch(Exception ex)
+                    {
+                        
+                    }
+            response.sendRedirect("index.html");
+            %>
+    </body>
+</html>
+
+4.Jdbc_list.jsp
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@ page import="java.sql.*" %>
+<%@page import="java.lang.*" %>
+<!DOCTYPE html>
+<html>
+    <body bgcolor="pink">
+    <marquee><h1>Listing the books</h1></marquee>
+       <%
+try 
+{
+Class.forName("com.mysql.jdbc.Driver"); 
+Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/Books","root", "mysql");      
+out.println(" Connected");
+Statement st = con.createStatement();
+
+String s=new String(request.getParameter("Book type"));
+
+
+ResultSet rs=st.executeQuery("Select * from book where author="Chetan bhagat"");
+while(rs.next()){
+ 
+       %> 
+<%
+out.println(" "+rs.rs.getString("pname")+"  "+rs.getString("pauthor")+" "+rs.getString("pbooktype"));
+} 
+rs.close();
+st.close();
+con.close();
+
+}
+catch(Exception ex)
+{
+
+}
+
+
+%>
+    <br><br>
+<a href="index.html" > Goto Home Page </a>
+</body>
+</html>
+
+5.Jdbc_insert.jsp
+  
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html>
+   
+    <body bgcolor="yellow" >
+   <marquee> <h1>LibraryManagement</h1></marquee>
+    <center>
+    <form action="insert.jsp" method="get">
+        <pre>
+        Enter the name:<input type="text" name="name"/>
+        <br>
+        Enter the Author name:<input type="text" name="Author"/>
+        <br>
+        Enter the book type:<input type="text" name="bookType"/>
+        <br>
+        <input type="submit" value="INSERT"/>
+        <br>
+     <a href="index.html">--Go TO HOME PAGE--</a>
+        </pre>
+    </center>
+    </form>
+    </body>
+</html>
