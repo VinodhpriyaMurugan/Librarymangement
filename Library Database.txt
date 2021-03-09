@@ -1,0 +1,7 @@
+use database Books;
+Create table bookval(pname varchar(255),pauthor varchar(255),
+pbooktype varchar(255));
+insert into bookval values(A science story,APJ,Fiction);
+insert into bookval values(Three idiots,Chetan Bhagat,Fiction);
+insert into bookval values(kids book,savithri,kids);
+
